@@ -1,10 +1,12 @@
 type Post = {
     id: number;
     title: string;
+    author: string;
+    creationDate: number;
+    description: string;
     urlSafeTitle: string;
     mdUrl: string;
-    description: string;
-    tags: string[];
+    keywords: string[];
 };
 
 /**
@@ -20,7 +22,7 @@ export async function getPosts(): Promise<Post[]> {
             urlSafeTitle: "reporting-security-issues",
             mdUrl: "https://raw.githubusercontent.com/facebook/react/main/SECURITY.md",
             description: "How to report security issues to the React team.",
-            tags: ["security", "reporting", "issues"],
+            keywords: ["security", "reporting", "issues"],
         },
     ];
 }

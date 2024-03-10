@@ -6,7 +6,7 @@ export default async function AllPostsPage() {
     const postElements = posts.map((post) => (
         <div key={post.id}>
             <p>{post.title}</p>
-            <p>{post.lede}</p>
+            <p>{post.description}</p>
             <p>{post.creationData}</p>
         </div>
     ));
