@@ -19,9 +19,13 @@ type Post = {
  * both a path to the markdown file (index by date) and a path to the headline image (indexed by post ID).
  */
 const siteMap = {
+    "second-post-with-various-components": {
+        mdUrl: "/md/2024/03/04/second-post-with-various-components.md",
+        headlineImageUrl: "/img/20240304/headline.jpg?raw=true",
+    },
     "sample-post": {
         mdUrl: "/md/2024/03/03/sample-post.md",
-        headlineImageUrl: "/img/1/headline.jpg?raw=true",
+        headlineImageUrl: "/img/20240303/headline.jpg?raw=true",
     },
 };
 

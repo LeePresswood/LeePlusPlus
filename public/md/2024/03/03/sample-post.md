@@ -6,6 +6,7 @@ creationDate: 1710015843
 description: How to report security issues to the React team.
 keywords: security, reporting, issues
 ---
+
 # Reporting Security Issues
 
 If you believe you have found a security vulnerability in React, we encourage you to let us know right away. We will investigate all legitimate reports and do our best to quickly fix the problem.
