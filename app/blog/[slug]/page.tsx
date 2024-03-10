@@ -1,7 +1,9 @@
 import { ResolvingMetadata } from "next";
+import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 
 import { getPostFromUrlSlug } from "./api";
+import componentConfig from "./componentConfig";
 
 type Props = {
     params: { slug: string };
@@ -22,11 +24,15 @@ type Props = {
  * @returns {Promise<{ content: string, metadata: Post }>} A promise that resolves to an object containing the post content and metadata.
  */
 async function getPostContentAndMetadata(slug: string) {
-    const { content, metadata } = await getPostFromUrlSlug(slug);
-    return {
-        content,
-        metadata,
-    };
+    try {
+        const { content, metadata } = await getPostFromUrlSlug(slug);
+        return {
+            content,
+            metadata,
+        };
+    } catch (e) {
+        return notFound();
+    }
 }
 
 export async function generateMetadata({ params, searchParams }: Props, parent: ResolvingMetadata) {
@@ -39,6 +45,7 @@ export async function generateMetadata({ params, searchParams }: Props, parent: 
 }
 
 export default async function BlogPostPage({ params, searchParams }: Props) {
-    const { content, metadata } = await getPostContentAndMetadata(params.slug);
-    return <MDXRemote source={content} />;
+    const { content } = await getPostContentAndMetadata(params.slug);
+
+    return <MDXRemote source={content} components={componentConfig} />;
 }
