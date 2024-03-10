@@ -13,15 +13,6 @@ export const metadata: Metadata = {
     category: "technology",
     publisher: "Lee Presswood",
     creator: "Lee Presswood",
-    icons: {
-        icon: "/headline.jpg",
-        shortcut: "/headline.jpg",
-        apple: "/headline.jpg",
-        other: {
-            rel: "headline",
-            url: "/headline.jpg",
-        },
-    },
     formatDetection: {
         email: false,
         address: false,
@@ -47,6 +38,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
+            <link rel="icon" href="/icons/favicon.ico" sizes="any" />
             <body className={inter.className}>{children}</body>
         </html>
     );
