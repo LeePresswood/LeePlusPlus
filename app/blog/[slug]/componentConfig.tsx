@@ -13,5 +13,7 @@
  *  <h1 {...props} className="blue" style={{ fontSize: "100px" }}>
         {props.children}
     </h1>
+
+ * @see https://nextjs.org/docs/app/building-your-application/configuring/mdx
  */
 export default {};

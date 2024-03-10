@@ -15,32 +15,34 @@ type Props = {
  * and the metadata generation functions. It may seem like making two requests, but keep in mind
  * that NextJS caches the request via request memoization.
  *
- * Read more here:
- * - https://www.reddit.com/r/nextjs/comments/15kjrwb/dynamic_metadata_in_nextjs13/
- * - https://nextjs.org/docs/app/building-your-application/caching#request-memoization
+ * @see https://www.reddit.com/r/nextjs/comments/15kjrwb/dynamic_metadata_in_nextjs13/
+ * @see https://nextjs.org/docs/app/building-your-application/caching#request-memoization
  *
  * @param {string} slug The URL slug of the post.
  *
- * @returns {Promise<{ content: string, metadata: Post }>} A promise that resolves to an object containing the post content and metadata.
+ * @returns {Promise<{ content: string, headlineImageUrl: string, : Post }>} A promise that resolves to an object containing the post content and metadata.
  */
-async function getPostContentAndMetadata(slug: string) {
+function getPostContentAndMetadata(slug: string) {
     try {
-        const { content, metadata } = await getPostFromUrlSlug(slug);
-        return {
-            content,
-            metadata,
-        };
+        return getPostFromUrlSlug(slug);
     } catch (e) {
         return notFound();
     }
 }
 
 export async function generateMetadata({ params, searchParams }: Props, parent: ResolvingMetadata) {
-    const { metadata } = await getPostContentAndMetadata(params.slug);
+    const { headlineImageUrl, metadata } = await getPostContentAndMetadata(params.slug);
     return {
         title: metadata.title,
         description: metadata.description,
         keywords: metadata.keywords,
+        authors: [metadata.author],
+        twitter: {
+            card: "summary_large_image",
+            site: "@Lee_Presswood",
+            creator: "@Lee_Presswood",
+            images: [headlineImageUrl],
+        },
     };
 }
 

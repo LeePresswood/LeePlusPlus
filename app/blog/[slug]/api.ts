@@ -2,6 +2,7 @@ import matter from "gray-matter";
 
 type Post = {
     content: string;
+    headlineImageUrl: string;
     metadata: {
         id: number;
         title: string;
@@ -24,6 +25,11 @@ const siteMap = {
     },
 };
 
+function getUrlOfResource(resource: string) {
+    const currentHost = process.env.SERVER_HOST || "http://localhost:3000";
+    return `${currentHost}${resource}`;
+}
+
 /**
  * Retrieve the markdown content of a blog post by its URL slug. This content is then decoded by gray-matter
  * in order to extract the front matter and the markdown body.
@@ -41,13 +47,13 @@ export async function getPostFromUrlSlug(slug: string): Promise<Post> {
         throw new Error("Post not found");
     }
 
-    const currentHost = process.env.SERVER_HOST || "http://localhost:3000";
-
-    const response = await fetch(`${currentHost}${post.mdUrl}`);
+    const resourceUrl = getUrlOfResource(post.mdUrl);
+    const response = await fetch(resourceUrl);
     const matterDecode = matter(await response.text());
 
     return {
         content: matterDecode.content,
+        headlineImageUrl: getUrlOfResource(post.headlineImageUrl),
         metadata: {
             id: matterDecode.data.id,
             title: matterDecode.data.title,
